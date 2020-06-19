@@ -12,11 +12,15 @@ if __name__ == '__main__':
     global_chem = GlobalChem()
 
     # Retrieve all Functional Groups
-    smiles_list = list(global_chem.functional_groups_smiles.values())
+    molecules = list(global_chem.functional_groups_smiles.values())
 
-    # Initialize the document
     document = MolPDF(name='functional_groups.pdf')
     document.add_title('Functional Groups Global Chem')
+    document.add_spacer()
 
     # Generate the document
-    document.generate(smiles=smiles_list, include_failed_smiles=True)
+    document.generate(smiles=molecules, include_failed_smiles=True)
+
+    # Read PDF
+    document = MolPDFParser('functional_groups.pdf')
+    molecules = document.extract_smiles()
